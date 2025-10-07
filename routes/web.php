@@ -1,15 +1,17 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UtamaController;
+use App\Http\Controllers\ProfileController;
 
 // Route::get('/', function () {
-//     return view('welcome');
+//     return view('utama-index');
 // });
 
-Route::get('/', function () {
-    return view('utama-index');
-});
+Route::get('/', [UtamaController::class, 'index'])->name('home');
+Route::get('/pencapaian', [UtamaController::class, 'pencapaian'])->name('pencapaian.ipr');
+Route::get('/tentang', [UtamaController::class, 'tentang'])->name('tentang.ipr');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
