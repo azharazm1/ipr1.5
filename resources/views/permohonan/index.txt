@@ -1,0 +1,74 @@
+<x-guest-layout>
+    <div class="md:min-h-[600px] sm:max-w-3xl mx-auto px-6 py-12 bg-white sm:rounded-lg text-center">
+        <h1 class="text-3xl font-bold mb-8">Pilih Jenis Program IPR</h1>
+
+        {{-- <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            INSAN Card
+            <a href="{{ route('permohonan.create', ['jenis' => 'INSAN']) }}"
+                class="block border border-gray-300 rounded-lg p-8 shadow hover:shadow-lg transition bg-red-50 hover:bg-red-100">
+                <img src="{{ asset('images/INSAN 2.jpeg') }}" alt="INSAN" class="mx-auto w-32 h-32 object-contain mb-4">
+                <h2 class="text-2xl font-bold text-red-600 mb-2">INSAN</h2>
+                <p>Inisiatif Usahawan Makanan</p>
+            </a>
+
+            INTAN Card
+            <a href="{{ route('permohonan.create', ['jenis' => 'INTAN']) }}"
+                class="block border border-gray-300 rounded-lg p-8 shadow hover:shadow-lg transition bg-green-50 hover:bg-green-100">
+                <img src="{{ asset('images/INTAN 9.jpeg') }}" alt="INTAN"
+                    class="mx-auto w-32 h-32 object-contain mb-4">
+                <h2 class="text-2xl font-bold text-green-600 mb-2">INTAN</h2>
+                <p>Inisiatif Usahawan Tani</p>
+            </a>
+        </div> --}}
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            {{-- INSAN Card --}}
+            <div class="relative w-80 h-96 px-5 py-8 group rounded-xl bg-gray-200 overflow-hidden shadow-xl">
+                <img src="{{ asset('images/INTAN 9.jpeg') }}" alt=""
+                    class="absolute w-full h-full inset-0 object-cover">
+                <div
+                    class="absolute inset-0 w-full h-full rounded-xl bg-black bg-opacity-0 transition duration-500 backdrop-filter group-hover:bg-opacity-20 group-hover:backdrop-blur">
+                </div>
+                <div class="absolute inset-x-5 text-white">
+                    <h2 class="text-3xl font-semibold mb-2">Usahawan</h2>
+                    <p class="text-xl font-medium uppercase tracking-wider mb-6">Tani</p>
+                    <p class="hidden group-hover:block">Menstransformasikan kehidupan menerusi Inisiatif Pendapatan
+                        Rakyat – Inisiatif Usahawan Tani (IPR-INTAN)
+                    </p>
+                </div>
+                <button
+                    class="absolute inset-x-5 bottom-8 py-3 rounded-xl font-semibold bg-white shadow-lg hidden transition duration-200 hover:bg-gray-300 group-hover:block">Selanjutnya</button>
+            </div>
+
+            {{-- INTAN Card --}}
+            <div class="relative w-80 h-96 px-5 py-8 group rounded-xl bg-gray-200 overflow-hidden shadow-xl">
+                <img src="{{ asset('images/INSAN 2.jpeg') }}" alt=""
+                    class="absolute w-full h-full inset-0 object-cover">
+                <div
+                    class="absolute inset-0 w-full h-full rounded-xl bg-black bg-opacity-0 transition duration-500 backdrop-filter group-hover:bg-opacity-20 group-hover:backdrop-blur">
+                </div>
+                <div class="absolute inset-x-5 text-white">
+                    <h2 class="text-3xl font-semibold mb-2">Usahawan</h2>
+                    <p class="text-xl font-medium uppercase tracking-wider mb-6">Makanan</p>
+                    <p class="hidden group-hover:block">Menstransformasikan kehidupan menerusi Inisiatif Pendapatan
+                        Rakyat – Inisiatif Usahawan Makanan (IPR-INSAN)
+                    </p>
+                </div>
+                <button
+                    class="absolute inset-x-5 bottom-8 py-3 rounded-xl font-semibold bg-white shadow-lg hidden transition duration-200 hover:bg-gray-300 group-hover:block">Selanjutnya</button>
+            </div>
+        </div>
+
+        {{-- test --}}
+
+
+
+
+
+        @if (session('success'))
+            <div class="mt-8 bg-green-100 text-green-700 p-4 rounded-lg shadow">
+                <p>{{ session('success') }}</p>
+            </div>
+        @endif
+    </div>
+</x-guest-layout>

@@ -26,7 +26,7 @@
             @include('lamanutama.utama-nav')
         </header>
 
-        <main class="md:min-w-full  sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <main class="md:min-w-full sm:max-w-md px-6 py-4 bg-white overflow-hidden sm:rounded-lg">
             {{-- class="md:min-w-full  sm:max-w-md px-6 py-4 bg-white dark:bg-gray-800 shadow-md overflow-hidden sm:rounded-lg"> --}}
             {{ $slot }}
         </main>
