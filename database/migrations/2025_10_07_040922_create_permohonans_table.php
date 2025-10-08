@@ -20,9 +20,14 @@ return new class extends Migration
             // Soalan Tambahan (INSAN)
             $table->string('pengalaman_makanan')->nullable();
             $table->string('tifoid')->nullable(); // Ya/Tidak
+            $table->string('tarikh_tifoid')->nullable(); // Nyatakan tarikh
+            $table->string('tarikh_luput')->nullable(); // Nyatakan tarikh
+            $table->string('kursus_pengendali')->nullable(); // Ya/Tidak
+            $table->string('tarikh_kursus')->nullable(); // Nyatakan tarikh
             $table->string('jenis_makanan')->nullable();
             $table->string('ada_kenderaan')->nullable(); // Ya/Tidak
             $table->string('jenis_kenderaan')->nullable();
+            $table->string('tempat_vending')->nullable();
 
             // Maklumat Diri
             $table->string('nama');
@@ -38,7 +43,7 @@ return new class extends Migration
             $table->string('telefon')->nullable();
             $table->string('email')->nullable();
             $table->decimal('pendapatan', 10, 2)->nullable();
-            $table->string('str')->nullable();
+            $table->string('str')->nullable(); // Ya/Tidak
 
             $table->timestamps();
         });

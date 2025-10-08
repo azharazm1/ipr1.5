@@ -26,7 +26,7 @@
             @include('lamanutama.utama-nav')
         </header> --}}
 
-        <main class="md:min-w-full  sm:max-w-md px-6 py-4 bg-white shadow-md overflow-hidden sm:rounded-lg">
+        <main class="md:min-w-full  sm:max-w-md px-2 py-2 bg-white shadow-md overflow-hidden sm:rounded-lg">
             <div class="flex flex-wrap">
                 <div class="w-full sm:w-7/12 mb-10">
                     <div class="container mx-auto h-full sm:p-5">

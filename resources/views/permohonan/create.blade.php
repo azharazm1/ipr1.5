@@ -49,6 +49,7 @@
             {{-- SOALAN TAMBAHAN (Hanya untuk INSAN) --}}
             @if ($jenis === 'INSAN')
                 <div id="soalan_insan" class="space-y-4">
+                    {{-- Pengalaman --}}
                     <div>
                         <label class="block font-medium">Adakah anda mempunyai pengalaman dalam penyediaan
                             makanan?</label>
@@ -60,19 +61,67 @@
                         @enderror
                     </div>
 
+                    {{-- Suntikan Tifoid --}}
                     <div>
                         <label class="block font-medium">Adakah pernah menerima suntikan tifoid?</label>
-                        <select name="tifoid"
+                        <select id="tifoid" name="tifoid"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
                             <option value="">-- Pilih --</option>
                             <option value="Ya" {{ old('tifoid') == 'Ya' ? 'selected' : '' }}>Ya</option>
                             <option value="Tidak" {{ old('tifoid') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
                         </select>
+
                         @error('tifoid')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
+                        <!-- Tifoid date fields -->
+                        <input type="text" id="tarikh_tifoid" name="tarikh_tifoid" value="{{ old('tarikh_tifoid') }}"
+                            class="hidden mt-2 w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
+                            placeholder="Nyatakan tarikh suntikan">
+
+                        @error('tarikh_tifoid')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
+                        <input type="text" id="tarikh_luput" name="tarikh_luput" value="{{ old('tarikh_luput') }}"
+                            class="hidden mt-2 w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
+                            placeholder="Nyatakan tarikh luput vaksinasi">
+
+                        @error('tarikh_luput')
                             <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                         @enderror
                     </div>
 
+                    {{-- Kursus pengendalian makanan --}}
+                    <div>
+                        <label class="block font-medium">Adakah anda pernah menghadiri Kursus Latihan Pengendali
+                            Makanan?</label>
+                        <select id="kursus_pengendali" name="kursus_pengendali"
+                            class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
+                            <option value="">-- Pilih --</option>
+                            <option value="Ya" {{ old('kursus_pengendali') == 'Ya' ? 'selected' : '' }}>Ya</option>
+                            <option value="Tidak" {{ old('kursus_pengendali') == 'Tidak' ? 'selected' : '' }}>Tidak
+                            </option>
+                        </select>
+
+                        @error('kursus_pengendali')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
+                        <!-- Tifoid date fields -->
+                        <input type="text" id="tarikh_kursus" name="tarikh_kursus"
+                            value="{{ old('tarikh_kursus') }}"
+                            class="hidden mt-2 w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
+                            placeholder="Nyatakan tarikh anda menghadiri kursus (seperti yang tertera di sijil)">
+
+                        @error('tarikh_kursus')
+                            <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                        @enderror
+
+                    </div>
+
+                    {{-- Makanan masakan berminat --}}
                     <div>
                         <label class="block font-medium">Jenis Makanan Bermasak yang berminat untuk diletakkan?</label>
                         <input type="text" name="jenis_makanan" value="{{ old('jenis_makanan') }}"
@@ -83,6 +132,7 @@
                         @enderror
                     </div>
 
+                    {{-- Kenderaan --}}
                     <div>
                         <label class="block font-medium">Adakah anda mempunyai kenderaan?</label>
                         <select name="ada_kenderaan" id="ada_kenderaan"
@@ -103,6 +153,17 @@
                     </div>
                 </div>
             @endif
+
+            {{-- Lokasi vending --}}
+            <div>
+                <label class="block font-medium">Lokasi Penempatan Mesin Layan Diri (Vending Machine)</label>
+                <input type="text" name="tempat_vending" value="{{ old('tempat_vending') }}"
+                    class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
+                    placeholder="Sila cadangkan lokasi yang mempunyai potensi di sekitar alamat kediaman anda">
+                @error('tempat_vending')
+                    <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                @enderror
+            </div>
 
             {{-- MAKLUMAT DIRI --}}
             <h2 class="text-2xl font-bold mt-4 mb-4 border-b-2 border-red-500 inline-block">Maklumat Diri</h2>
@@ -320,7 +381,10 @@
         </form>
     </div>
 
-    {{-- JS Logic --}}
+    <!-- ✅ Flatpickr CSS + JS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
     <script>
         const negeriSelect = document.getElementById('negeri');
         const daerahSelect = document.getElementById('daerah');
@@ -332,7 +396,16 @@
         const noKpInput = document.getElementById('no_kp');
         const telefonInput = document.getElementById('telefon');
 
-        // Dynamic daerah
+        // --- Tifoid fields ---
+        const tifoidSelect = document.getElementById('tifoid');
+        const tarikhTifoid = document.getElementById('tarikh_tifoid');
+        const tarikhLuput = document.getElementById('tarikh_luput');
+
+        // --- Kursus Pengendali Makanan fields ---
+        const kursusSelect = document.getElementById('kursus_pengendali');
+        const tarikhKursus = document.getElementById('tarikh_kursus');
+
+        // --- Dynamic daerah ---
         negeriSelect?.addEventListener('change', function() {
             const negeri = this.value;
             daerahSelect.innerHTML = '<option value="">-- Pilih Daerah --</option>';
@@ -352,17 +425,17 @@
                 .finally(() => spinner.classList.add('hidden'));
         });
 
-        // Bangsa lain
+        // --- Bangsa lain ---
         bangsaSelect?.addEventListener('change', () => {
             bangsaLainInput.classList.toggle('hidden', bangsaSelect.value !== 'Lain-lain');
         });
 
-        // Jenis kenderaan
+        // --- Jenis kenderaan ---
         adaKenderaan?.addEventListener('change', () => {
             jenisKenderaan.classList.toggle('hidden', adaKenderaan.value !== 'Ya');
         });
 
-        // Auto format IC
+        // --- Auto format IC ---
         noKpInput?.addEventListener('input', function() {
             let v = this.value.replace(/\D/g, '');
             if (v.length > 6 && v.length <= 8) v = v.slice(0, 6) + '-' + v.slice(6);
@@ -370,7 +443,7 @@
             this.value = v;
         });
 
-        // Auto format telefon
+        // --- Auto format telefon ---
         telefonInput?.addEventListener('input', function() {
             let v = this.value.replace(/[^\d+]/g, '');
             if (!v.startsWith('+60') && !v.startsWith('0')) v = '+60';
@@ -384,5 +457,58 @@
             }
             this.value = v;
         });
+
+        // --- Tifoid show/hide inputs ---
+        function toggleTifoidInputs() {
+            if (tifoidSelect?.value === 'Ya') {
+                tarikhTifoid.classList.remove('hidden');
+                tarikhLuput.classList.remove('hidden');
+            } else {
+                tarikhTifoid.classList.add('hidden');
+                tarikhLuput.classList.add('hidden');
+            }
+        }
+        tifoidSelect?.addEventListener('change', toggleTifoidInputs);
+        toggleTifoidInputs(); // run on load
+
+        // --- Kursus show/hide input ---
+        function toggleKursusInput() {
+            if (kursusSelect?.value === 'Ya') {
+                tarikhKursus.classList.remove('hidden');
+            } else {
+                tarikhKursus.classList.add('hidden');
+            }
+        }
+        kursusSelect?.addEventListener('change', toggleKursusInput);
+        toggleKursusInput(); // run on load
+
+        // --- Flatpickr initialization ---
+        flatpickr("#tarikh_tifoid", {
+            dateFormat: "d/m/Y",
+            allowInput: true,
+            disableMobile: true, // always show Flatpickr UI on mobile
+            locale: {
+                firstDayOfWeek: 1
+            }
+        });
+
+        flatpickr("#tarikh_luput", {
+            dateFormat: "d/m/Y",
+            allowInput: true,
+            disableMobile: true,
+            locale: {
+                firstDayOfWeek: 1
+            }
+        });
+
+        flatpickr("#tarikh_kursus", {
+            dateFormat: "d/m/Y",
+            allowInput: true,
+            disableMobile: true,
+            locale: {
+                firstDayOfWeek: 1
+            }
+        });
     </script>
+
 </x-guest-layout>
