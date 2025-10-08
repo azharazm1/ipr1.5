@@ -64,8 +64,44 @@
                     </div>
                 </div>
                 {{-- desktop view only --}}
-                <img src="{{ asset('images/INTAN 6.jpeg') }}" alt="gambar-makcik-roti-canai"
-                    class="hidden sm:block w-full h-48 object-cover sm:h-screen sm:w-5/12">
+
+                <div x-data="{
+                    images: [
+                        '{{ asset('images/INTAN 6.jpeg') }}',
+                        '{{ asset('images/INTAN 3.jpeg') }}',
+                        '{{ asset('images/INSAN 1-1.jpeg') }}',
+                        '{{ asset('images/INSAN 3-1.jpeg') }}'
+                    ],
+                    currentIndex: 0,
+                    transitioning: false,
+                    init() {
+                        setInterval(() => {
+                            this.next();
+                        }, 4000);
+                    },
+                    next() {
+                        this.transitioning = true;
+                        setTimeout(() => {
+                            this.currentIndex = (this.currentIndex + 1) % this.images.length;
+                            this.transitioning = false;
+                        }, 500); // match transition time
+                    }
+                }" class="hidden sm:block sm:h-screen sm:w-5/12 overflow-hidden relative">
+                    <template x-for="(image, index) in images" :key="index">
+                        <div x-show="index === currentIndex || (index === ((currentIndex + images.length - 1) % images.length) && transitioning)"
+                            :class="{
+                                'translate-x-0': index === currentIndex && !transitioning,
+                                '-translate-x-full': index === ((currentIndex + images.length - 1) % images.length) &&
+                                    transitioning,
+                                'absolute': true
+                            }"
+                            class="transition-transform duration-500 ease-in-out w-full h-full">
+                            <img :src="image" class="w-full h-full object-cover" alt="slider image">
+                        </div>
+                    </template>
+                </div>
+
+
                 {{-- desktop view only --}}
             </div>
         </main>
