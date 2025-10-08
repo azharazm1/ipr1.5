@@ -1,7 +1,43 @@
 <x-guest-layout>
-    <div class="sm:max-w-2xl mx-auto px-6 py-8 text-gray-800 bg-white overflow-hidden sm:rounded-lg">
+    <div class="sm:max-w-3xl mx-auto px-6 py-8 text-gray-800 bg-white overflow-hidden sm:rounded-lg">
+        <!-- Step Indicator with Progress Bar -->
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-4 w-full">
+                <!-- Step 1 -->
+                <div class="relative flex-1 flex items-center">
+                    <div id="indicator-1"
+                        class="w-8 h-8 text-sm flex items-center justify-center bg-red-600 text-white rounded-full transition-colors duration-300">
+                        1</div>
+                    <div id="line-1"
+                        class="absolute w-full h-1 bg-gray-300 left-0 top-1/2 transform translate-y-[-50%] z-[-1] transition-colors duration-300">
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative flex-1 flex items-center">
+                    <div id="indicator-2"
+                        class="w-8 h-8 text-sm flex items-center justify-center bg-red-600 text-white rounded-full transition-colors duration-300">
+                        2</div>
+                    <div id="line-2"
+                        class="absolute w-full h-1 bg-gray-300 left-0 top-1/2 transform translate-y-[-50%] z-[-1] transition-colors duration-300">
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div>
+                    <div id="indicator-3"
+                        class="w-8 h-8 text-sm flex items-center justify-center bg-gray-300 text-gray-600 rounded-full transition-colors duration-300">
+                        3</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-8">
+            <div id="progress-bar" class="bg-red-600 h-2 rounded-full transition-all duration-300" style="width: 60%;">
+            </div>
+        </div>
+
         {{-- Title --}}
-        <h1 class="text-3xl text-gray-800 font-bold text-center mb-6">
+        <h1 class="text-3xl text-gray-800 font-bold text-center mb-4">
             Borang Permohonan IPR - {{ strtoupper($jenis ?? 'PROGRAM') }}
         </h1>
 
@@ -18,7 +54,7 @@
                             makanan?</label>
                         <input type="text" name="pengalaman_makanan" value="{{ old('pengalaman_makanan') }}"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
-                            placeholder="Contoh: Penjaja Nasi Lemak">
+                            placeholder="Contoh: Penjual, Penjaja dll">
                         @error('pengalaman_makanan')
                             <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -38,10 +74,10 @@
                     </div>
 
                     <div>
-                        <label class="block font-medium">Jenis Makanan Bermasak yang diminati</label>
+                        <label class="block font-medium">Jenis Makanan Bermasak yang berminat untuk diletakkan?</label>
                         <input type="text" name="jenis_makanan" value="{{ old('jenis_makanan') }}"
                             class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
-                            placeholder="Contoh: Mee Goreng, Nasi Lemak">
+                            placeholder="Contoh: Nasi Lemak, Mee Goreng dll">
                         @error('jenis_makanan')
                             <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -60,7 +96,7 @@
                         <input type="text" id="jenis_kenderaan" name="jenis_kenderaan"
                             value="{{ old('jenis_kenderaan') }}"
                             class="hidden mt-2 w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
-                            placeholder="Nyatakan jenis kenderaan">
+                            placeholder="Nyatakan jenis kenderaan: Motosikal/Kereta">
                         @error('jenis_kenderaan')
                             <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                         @enderror
@@ -69,7 +105,7 @@
             @endif
 
             {{-- MAKLUMAT DIRI --}}
-            <h2 class="text-2xl font-bold mt-8 mb-4 border-b-2 border-red-500 inline-block">Maklumat Diri</h2>
+            <h2 class="text-2xl font-bold mt-4 mb-4 border-b-2 border-red-500 inline-block">Maklumat Diri</h2>
 
             <div class="space-y-4">
                 {{-- Nama --}}
@@ -91,7 +127,7 @@
                         title="Format mesti seperti 900101-14-5678"
                         class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
                         required>
-                    <small class="text-gray-500">Format: 900101-14-5678</small>
+                    {{-- <small class="text-gray-500">Format: 900101-14-5678</small> --}}
                     @error('no_kp')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -126,7 +162,7 @@
                     </select>
                     <input type="text" id="bangsa_lain" name="bangsa_lain" value="{{ old('bangsa_lain') }}"
                         class="hidden mt-2 w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
-                        placeholder="Nyatakan bangsa lain">
+                        placeholder="Sila nyatakan">
                     @error('bangsa_lain')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -172,13 +208,16 @@
                 {{-- Poskod --}}
                 <div>
                     <label class="block font-medium">Poskod</label>
-                    <input type="text" name="poskod" value="{{ old('poskod') }}"
+                    <input type="text" name="poskod" value="{{ old('poskod') }}" maxlength="5"
+                        inputmode="numeric" pattern="[0-9]*"
+                        oninput="this.value = this.value.replace(/[^0-9]/g, '');"
                         class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
-                        maxlength="5">
+                        placeholder="Contoh: 43000">
                     @error('poskod')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+
 
                 {{-- Alamat --}}
                 <div>
@@ -193,28 +232,29 @@
                 {{-- Telefon (Two-column format) --}}
                 <div>
                     <label class="block font-medium">No. Telefon Bimbit</label>
-                    <div class="grid grid-cols-2 gap-3">
+
+                    <div class="flex flex-wrap gap-3">
                         {{-- Prefix column --}}
-                        <div class="flex items-center">
+                        <div class="flex items-center flex-shrink-0">
                             <span
                                 class="px-3 py-2 bg-gray-100 border border-gray-300 rounded-l-md text-gray-700 select-none">+60</span>
                             <input type="text" name="telefon_prefix" id="telefon_prefix"
-                                value="{{ old('telefon_prefix') }}" placeholder="Contoh: 11, 12, 13, 19"
-                                pattern="^1[0-9]{1,2}$"
-                                title="Masukkan 2 atau 3 digit selepas +60, contoh: 11, 19, 12" maxlength="3"
-                                class="flex-1 border-t border-b border-gray-300 rounded-r-md focus:ring-red-500 focus:border-red-500 text-center"
+                                value="{{ old('telefon_prefix') }}" placeholder="" maxlength="3"
+                                inputmode="numeric" pattern="[0-9]*"
+                                oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                class="w-16 border-t border-b border-gray-300 rounded-r-md focus:ring-red-500 focus:border-red-500 text-center"
                                 required>
                         </div>
 
                         {{-- Main number column --}}
-                        <input type="text" name="telefon_main" id="telefon_main"
-                            value="{{ old('telefon_main') }}" placeholder="Contoh: 3456789" pattern="^[0-9]{6,8}$"
-                            title="Masukkan 6 hingga 8 digit nombor utama" maxlength="8"
-                            class="w-full border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 text-center"
-                            required>
+                        <div class="flex-1 min-w-[160px]">
+                            <input type="text" name="telefon_main" id="telefon_main"
+                                value="{{ old('telefon_main') }}" placeholder="" maxlength="9" inputmode="numeric"
+                                pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '');"
+                                class="w-full border-gray-300 rounded-md shadow-sm focus:ring-red-500 focus:border-red-500 text-center"
+                                required>
+                        </div>
                     </div>
-
-                    <small class="text-gray-500">Contoh: +60 19 - 5546524 atau +60 11 - 33552211</small>
 
                     @error('telefon_prefix')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
@@ -223,7 +263,6 @@
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
-
 
                 {{-- Emel --}}
                 <div>
@@ -234,15 +273,50 @@
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
                 </div>
+
+                {{-- Pendapatan --}}
+                <div>
+                    <label class="block font-medium">Jumlah Pendapatan (RM)</label>
+                    <input type="text" name="pendapatan" value="{{ old('pendapatan') }}" inputmode="decimal"
+                        oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
+                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
+                        placeholder="Contoh: 2500.50">
+                    @error('pendapatan')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
+
+
+                {{-- STR --}}
+                <div>
+                    <label class="block font-medium">Penerima Sumbangan Tunai Rahmah (STR)</label>
+                    <select name="str"
+                        class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500">
+                        <option value="">-- Pilih --</option>
+                        <option value="Ya" {{ old('str') == 'Ya' ? 'selected' : '' }}>Ya</option>
+                        <option value="Tidak" {{ old('str') == 'Tidak' ? 'selected' : '' }}>Tidak</option>
+                    </select>
+                    @error('str')
+                        <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
+                    @enderror
+                </div>
             </div>
 
-            {{-- Submit Button --}}
-            <div class="text-center mt-8">
+            {{-- Action Buttons --}}
+            <div class="text-center mt-8 flex flex-wrap justify-center gap-4">
+                {{-- Back Button --}}
+                <a href="{{ url()->previous() }}"
+                    class="text-gray-600 ring-1 ring-inset ring-gray-400 hover:bg-gray-100 text-lg font-medium px-10 py-2 rounded-lg shadow inline-block transition">
+                    Kembali
+                </a>
+
+                {{-- Submit Button --}}
                 <button type="submit"
-                    class="bg-red-500 hover:bg-red-600 text-white font-semibold px-10 py-3 rounded-lg shadow-md hover:shadow-lg transition">
+                    class="hover:bg-red-500 text-red-600 ring-1 ring-inset ring-red-600 hover:text-white text-lg font-medium px-12 py-2 rounded-lg shadow inline-block transition">
                     Hantar Permohonan
                 </button>
             </div>
+
         </form>
     </div>
 

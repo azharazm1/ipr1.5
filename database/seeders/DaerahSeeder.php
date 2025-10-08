@@ -11,6 +11,9 @@ class DaerahSeeder extends Seeder
     /**
      * Run the database seeds.
      */
+
+    // php artisan db:seed --class=DaerahSeeder
+
     public function run(): void
     {
         DB::table('daerahs')->insert([
@@ -170,6 +173,14 @@ class DaerahSeeder extends Seeder
             ['negeri' => 'Sarawak', 'daerah' => 'Subis'],
             ['negeri' => 'Sarawak', 'daerah' => 'Beluru'],
             ['negeri' => 'Sarawak', 'daerah' => 'Telang Usan'],
+            ['negeri' => 'Sarawak', 'daerah' => 'Marudi'],
+            ['negeri' => 'Wilayah Persekutuan', 'daerah' => 'Kuala Lumpur'],
+            ['negeri' => 'Wilayah Persekutuan', 'daerah' => 'Labuan'],
+            ['negeri' => 'Wilayah Persekutuan', 'daerah' => 'Putrajaya'],
+            ['negeri' => 'Perlis', 'daerah' => 'Kangar'],
+            ['negeri' => 'Perlis', 'daerah' => 'Arau'],
+            ['negeri' => 'Perlis', 'daerah' => 'Padang Besar'],
+
         ]);
     }
 }

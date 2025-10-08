@@ -26,7 +26,8 @@ return new class extends Migration
 
             // Maklumat Diri
             $table->string('nama');
-            $table->string('no_kp')->unique();
+            // $table->string('no_kp')->unique();
+            $table->string('no_kp')->nullable();
             $table->string('jantina')->nullable();
             $table->string('bangsa')->nullable();
             $table->string('bangsa_lain')->nullable();

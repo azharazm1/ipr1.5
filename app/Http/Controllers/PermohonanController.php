@@ -25,7 +25,7 @@ class PermohonanController extends Controller
 
         if (!$jenis || !in_array($jenis, ['INSAN', 'INTAN'])) {
             return redirect()->route('permohonan.index')
-                ->with('error', 'Sila pilih jenis program yang sah.');
+                ->with('error', 'Sila pilih jenis program.');
         }
 
         return view('permohonan.create', compact('jenis'));
@@ -47,7 +47,8 @@ class PermohonanController extends Controller
 
             // Maklumat Diri
             'nama' => 'required|string|max:255',
-            'no_kp' => ['required', 'regex:/^[0-9]{6}-[0-9]{2}-[0-9]{4}$/', 'unique:permohonans,no_kp'],
+            // 'no_kp' => ['required', 'regex:/^[0-9]{6}-[0-9]{2}-[0-9]{4}$/', 'unique:permohonans,no_kp'],
+            'no_kp' => ['required', 'regex:/^[0-9]{6}-[0-9]{2}-[0-9]{4}$/'],
             'jantina' => 'required|string|in:Lelaki,Perempuan',
             'bangsa' => 'nullable|string|max:50',
             'bangsa_lain' => 'nullable|string|max:100',
@@ -69,7 +70,7 @@ class PermohonanController extends Controller
         $telefon = '+60' . $request->telefon_prefix . '-' . $request->telefon_main;
 
         // ✅ Step 3: Create record
-        Permohonan::create([
+        $permohonan = Permohonan::create([
             'jenis_program' => $request->jenis_program,
             'pengalaman_makanan' => $request->pengalaman_makanan,
             'tifoid' => $request->tifoid,
@@ -93,8 +94,8 @@ class PermohonanController extends Controller
 
         // ✅ Step 4: Redirect with success message
         return redirect()
-            ->route('permohonan.index')
-            ->with('success', 'Terima kasih! Permohonan anda telah berjaya dihantar.');
+            ->route('permohonan.show', $permohonan->id)
+            ->with('success', 'Terima Kasih, permohonan anda telah diterima.');
     }
 
 
@@ -103,7 +104,8 @@ class PermohonanController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $permohonan = Permohonan::findOrFail($id);
+        return view('permohonan.show', compact('permohonan'));
     }
 
     /**

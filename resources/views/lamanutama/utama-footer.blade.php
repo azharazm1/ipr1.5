@@ -1,4 +1,4 @@
-<footer class="footer text-base-content flex justify-between px-10">
+<footer class="footer text-base-content flex justify-between">
     <div class="text-left">
         <p class="text-gray-600 text-base font-semibold">Kementerian Ekonomi</p>
         <p class="text-gray-500">Menara Prisma

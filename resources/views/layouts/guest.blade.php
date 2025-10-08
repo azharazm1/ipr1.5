@@ -22,7 +22,7 @@
 <body class="font-sans antialiased dark:bg-black dark:text-white/50">
     <div class="bg-gray-50 text-black/50">
         {{-- <div class="bg-gray-50 text-black/50 dark:bg-black dark:text-white/50"> --}}
-        <header class="sticky top-0 backdrop-blur-sm z-20">
+        <header class="sticky top-0 backdrop-blur-sm z-20 p-2">
             @include('lamanutama.utama-nav')
         </header>
 
@@ -31,7 +31,7 @@
             {{ $slot }}
         </main>
 
-        <footer>
+        <footer class="p-6">
             @include('lamanutama.utama-footer')
         </footer>
     </div>

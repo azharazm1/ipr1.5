@@ -1,5 +1,41 @@
 <x-guest-layout>
-    <div class="md:min-h-[600px] sm:max-w-3xl mx-auto px-6 py-12 bg-white sm:rounded-lg text-center">
+    <div class="h-screen md:min-h-[600px] sm:max-w-3xl mx-auto px-6 py-8 bg-white sm:rounded-lg text-center">
+        <!-- Step Indicator with Progress Bar -->
+        <div class="flex items-center justify-between mb-4">
+            <div class="flex items-center gap-4 w-full">
+                <!-- Step 1 -->
+                <div class="relative flex-1 flex items-center">
+                    <div id="indicator-1"
+                        class="w-8 h-8 text-sm flex items-center justify-center bg-red-600 text-white rounded-full transition-colors duration-300">
+                        1</div>
+                    <div id="line-1"
+                        class="absolute w-full h-1 bg-gray-300 left-0 top-1/2 transform translate-y-[-50%] z-[-1] transition-colors duration-300">
+                    </div>
+                </div>
+                <!-- Step 2 -->
+                <div class="relative flex-1 flex items-center">
+                    <div id="indicator-2"
+                        class="w-8 h-8 text-sm flex items-center justify-center bg-gray-300 text-gray-600 rounded-full transition-colors duration-300">
+                        2</div>
+                    <div id="line-2"
+                        class="absolute w-full h-1 bg-gray-300 left-0 top-1/2 transform translate-y-[-50%] z-[-1] transition-colors duration-300">
+                    </div>
+                </div>
+                <!-- Step 3 -->
+                <div>
+                    <div id="indicator-3"
+                        class="w-8 h-8 text-sm flex items-center justify-center bg-gray-300 text-gray-600 rounded-full transition-colors duration-300">
+                        3</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Progress Bar -->
+        <div class="w-full bg-gray-200 rounded-full h-2 mb-8">
+            <div id="progress-bar" class="bg-red-600 h-2 rounded-full transition-all duration-300" style="width: 30%;">
+            </div>
+        </div>
+
         <h1 class="text-2xl text-gray-800 font-semibold mb-8">Pilih Jenis Program yang ingin dimohon:</h1>
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-10 justify-items-center">
             {{-- INSAN Card --}}
