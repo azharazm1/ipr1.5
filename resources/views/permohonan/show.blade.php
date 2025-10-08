@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="h-screen md:min-h-[600px] sm:max-w-3xl mx-auto px-6 py-8 bg-white sm:rounded-lg text-center">
+    <div class="min-h-screen md:min-h-[600px] sm:max-w-3xl mx-auto px-6 py-8 bg-white sm:rounded-lg text-center">
         <!-- Step Indicator with Progress Bar -->
         <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-4 w-full">
@@ -36,7 +36,7 @@
             </div>
         </div>
 
-        <h1 class="text-2xl text-gray-800 font-semibold mb-8">Untuk sebarang persoalan lanjut sila hubungi kami di
+        <h1 class="text-xl md:text-2xl text-gray-800 font-semibold mb-8">Untuk sebarang persoalan lanjut sila hubungi kami di
              helpdesk.ipr@ekonomi.gov.my</h1>
 
         @if (session('success'))

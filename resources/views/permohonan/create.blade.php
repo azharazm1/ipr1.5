@@ -280,7 +280,7 @@
                     <input type="text" name="pendapatan" value="{{ old('pendapatan') }}" inputmode="decimal"
                         oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*)\./g, '$1');"
                         class="w-full border-gray-300 rounded-lg shadow-sm focus:ring-red-500 focus:border-red-500"
-                        placeholder="Contoh: 2500.50">
+                        placeholder="Contoh: 1700.00">
                     @error('pendapatan')
                         <p class="text-red-600 text-sm mt-1">{{ $message }}</p>
                     @enderror
@@ -306,7 +306,7 @@
             <div class="text-center mt-8 flex flex-wrap justify-center gap-4">
                 {{-- Back Button --}}
                 <a href="{{ url()->previous() }}"
-                    class="text-gray-600 ring-1 ring-inset ring-gray-400 hover:bg-gray-100 text-lg font-medium px-10 py-2 rounded-lg shadow inline-block transition">
+                    class="text-gray-600 ring-1 ring-inset ring-gray-400 hover:bg-gray-100 text-lg font-medium px-12 py-2 rounded-lg shadow inline-block transition">
                     Kembali
                 </a>
 

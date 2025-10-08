@@ -1,5 +1,5 @@
 <x-guest-layout>
-    <div class="h-screen md:min-h-[600px] sm:max-w-3xl mx-auto px-6 py-8 bg-white sm:rounded-lg text-center">
+    <div class="min-h-screen md:min-h-[600px] sm:max-w-3xl mx-auto px-6 py-8 bg-white sm:rounded-lg text-center">
         <!-- Step Indicator with Progress Bar -->
         <div class="flex items-center justify-between mb-4">
             <div class="flex items-center gap-4 w-full">

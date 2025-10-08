@@ -10,15 +10,10 @@
 
     <div class="text-right">
         <ul class="text-gray-500">
-            {{-- <li><a href="{{ route('terma.syarat') }}">Terma & Syarat</a></li>
+            <li><a href="{{ route('terma.syarat') }}">Terma & Syarat</a></li>
             <li><a href="{{ route('dasar.privasi') }}">Dasar Privasi</a></li>
             <li><a href="{{ route('dasar.keselamatan') }}">Dasar Keselamatan</a></li>
             <li><a href="{{ route('penafian') }}">Penafian</a></li>
-            <li><a>Hakcipta © 2024 Kementerian Ekonomi</a></li> --}}
-            <li><a href="">Terma & Syarat</a></li>
-            <li><a href="">Dasar Privasi</a></li>
-            <li><a href="">Dasar Keselamatan</a></li>
-            <li><a href="">Penafian</a></li>
             <li><a>Hakcipta © 2025 Kementerian Ekonomi</a></li>
         </ul>
     </div>

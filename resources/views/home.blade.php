@@ -32,12 +32,18 @@
                     <div class="container mx-auto h-full sm:p-5">
                         @include('lamanutama.utama-nav')
                         <div class="container px-4 lg:flex mt-10 items-center h-4/5 lg:mt-0">
+                            {{-- mobile view only --}}
+                            <img src="{{ asset('images/INTAN 6.jpeg') }}" alt="gambar-makcik-roti-canai"
+                                class="block sm:hidden w-full h-48 object-cover">
+                            {{-- mobile view only --}}
+
                             <div class="w-full">
                                 <h1 class="text-4xl lg:text-6xl font-bold text-gray-800">Basmi miskin tegar.<span
                                         class="text-orange-500"></span>
                                     Tambah pendapatan rakyat.</h1>
                                 <div class="w-20 h-2 bg-red-500 my-4"></div>
-                                <p class="text-xl mb-10 text-gray-800">IPR fokus dengan strategi serampang dua mata untuk menambah
+                                <p class="text-xl mb-10 text-gray-800">IPR fokus dengan strategi serampang dua mata
+                                    untuk menambah
                                     pendapatan
                                     keluarga miskin tegar dan B40 pada masa yang sama berusaha menyelesaikan masalah
                                     ekonomi harian
@@ -57,8 +63,10 @@
 
                     </div>
                 </div>
+                {{-- desktop view only --}}
                 <img src="{{ asset('images/INTAN 6.jpeg') }}" alt="gambar-makcik-roti-canai"
-                    class="w-full h-48 object-cover sm:h-screen sm:w-5/12">
+                    class="hidden sm:block w-full h-48 object-cover sm:h-screen sm:w-5/12">
+                {{-- desktop view only --}}
             </div>
         </main>
 
